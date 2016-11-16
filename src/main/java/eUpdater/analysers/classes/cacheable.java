@@ -1,9 +1,9 @@
 package eUpdater.analysers.classes;
 
 import eUpdater.analysers.methods.methodAnalyserFrame;
+import eUpdater.analysers.methods.methods;
 import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
-import eUpdater.analysers.methods.methods;
 import eUpdater.searchers.FieldSearcher;
 
 /**
@@ -11,7 +11,7 @@ import eUpdater.searchers.FieldSearcher;
  */
 public class cacheable extends classAnalyserFrame {
 
-    public void identify(classFrame c){
+    public void identify(classFrame c) {
         classes.myCacheable.setId("Cacheable");
         setMethodAnalyser(methods.myCacheable);
 

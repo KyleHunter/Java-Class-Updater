@@ -108,17 +108,17 @@ public class hook {
         if (L != -1 && Instructions[L] instanceof FieldInsnNode) {
             for (classFrame c : CLASSES.values()) {
                 List<FieldNode> fields = c.fields;
-                for (FieldNode f : fields){
-                    if ((f.name.equals(((FieldInsnNode)Instructions[L]).name)) && (f.desc.equals(((FieldInsnNode)Instructions[L]).desc))) {
+                for (FieldNode f : fields) {
+                    if ((f.name.equals(((FieldInsnNode) Instructions[L]).name)) && (f.desc.equals(((FieldInsnNode) Instructions[L]).desc))) {
                         setId(id);
                         setName(f.name);
                         setDesc(f.desc);
                         setSignature(f.signature);
                         setAccess(f.access);
-                        setOwner(((FieldInsnNode)Instructions[L]).owner);
+                        setOwner(((FieldInsnNode) Instructions[L]).owner);
                     }
-  }
                 }
+            }
         } else {
             this.setId(id);
             this.setOwner("NULL");

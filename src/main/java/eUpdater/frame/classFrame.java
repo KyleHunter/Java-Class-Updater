@@ -67,9 +67,7 @@ public class classFrame extends ClassNode {
             if (exact) {
                 if (m.desc.equals(desc))
                     methods.add(m);
-            }
-            else
-            if (m.desc.contains(desc))
+            } else if (m.desc.contains(desc))
                 methods.add(m);
         }
         if (methods.size() > 1)
@@ -86,9 +84,7 @@ public class classFrame extends ClassNode {
             if (exact) {
                 if (m.desc.equals(desc))
                     methods.add(m);
-            }
-            else
-            if (m.desc.contains(desc))
+            } else if (m.desc.contains(desc))
                 methods.add(m);
         }
         return methods;
@@ -101,9 +97,7 @@ public class classFrame extends ClassNode {
             if (exact) {
                 if (m.name.equals(desc))
                     methods.add(m);
-            }
-            else
-            if (m.name.contains(desc))
+            } else if (m.name.contains(desc))
                 methods.add(m);
         }
         return methods;

@@ -1,14 +1,15 @@
 package eUpdater.analysers.classes;
 
 import eUpdater.frame.classFrame;
-import org.objectweb.asm.tree.MethodNode;
 import eUpdater.misc.classes;
+import org.objectweb.asm.tree.MethodNode;
+
 import java.util.List;
 
 /**
  * Created by Kyle on 7/22/2015.
  */
-public class buffer extends classAnalyserFrame{
+public class buffer extends classAnalyserFrame {
 
     public void identify(classFrame c) {
         classes.myBuffer.setId("Buffer");

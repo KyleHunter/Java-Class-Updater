@@ -5,6 +5,7 @@ import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.FieldNode;
+
 import java.util.List;
 
 /**
@@ -18,12 +19,13 @@ public class gameObject extends classAnalyserFrame {
 
         classFrame removed = c;
         removed.removeFields("I");
-        int count = 0, count2= 0;
+        int count = 0, count2 = 0;
         List<FieldNode> fields = removed.fields;
         for (FieldNode fN : fields) {
-            if (fN.desc.equals("I")) {if ((fN.access & Opcodes.ACC_PUBLIC) == 0
-                    && (fN.access & Opcodes.ACC_STATIC) == 0)
-                ++count;
+            if (fN.desc.equals("I")) {
+                if ((fN.access & Opcodes.ACC_PUBLIC) == 0
+                        && (fN.access & Opcodes.ACC_STATIC) == 0)
+                    ++count;
                 if ((fN.access & Opcodes.ACC_PUBLIC) != 0 && (fN.access & Opcodes.ACC_STATIC) == 0)
                     ++count2;
             }

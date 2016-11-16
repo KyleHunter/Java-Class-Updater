@@ -25,7 +25,7 @@ public class boundaryObject extends methodAnalyserFrame {
 
         MethodNode method = null;
         for (classFrame c : CLASSES.values()) {
-            method = c.getMethod(true,"(IIIIL" + classes.myRenderable.getName() +
+            method = c.getMethod(true, "(IIIIL" + classes.myRenderable.getName() +
                     ";L" + classes.myRenderable.getName() + ";IIII)V");
             if (method != null)
                 break;
@@ -34,7 +34,7 @@ public class boundaryObject extends methodAnalyserFrame {
         AbstractInsnNode[] Instructions = method.instructions.toArray();
         int L = 0;
         int S = 0;
-        for (int I = 0; L != -1; ++ I) {
+        for (int I = 0; L != -1; ++I) {
             L = search.find(new int[]{Opcodes.ALOAD, Opcodes.ILOAD, Opcodes.LDC, Opcodes.IMUL, Opcodes.PUTFIELD}, I);
             if (((VarInsnNode) Instructions[L + 1]).var == 9) {
                 S = L;
@@ -59,7 +59,6 @@ public class boundaryObject extends methodAnalyserFrame {
         addHook(new hook("Orientation", Instructions, L));
         L = search.findSingleJump(Opcodes.GOTO, Opcodes.PUTFIELD, L, 50, 1);
         addHook(new hook("Height", Instructions, L));
-
 
 
     }

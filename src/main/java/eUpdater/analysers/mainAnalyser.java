@@ -1,10 +1,5 @@
 package eUpdater.analysers;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
 import eUpdater.analysers.classes.classAnalyserFrame;
 import eUpdater.frame.classFrame;
 import eUpdater.frame.hook;
@@ -16,8 +11,13 @@ import eUpdater.refactor.refactor;
 import eUpdater.searchers.mutltiplierSearcher;
 import org.objectweb.asm.tree.FieldNode;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import static eUpdater.misc.JarHandler.CLASSES;
 
 /**
@@ -31,6 +31,7 @@ public class mainAnalyser {
     private int brokenFieldsInt = 0, totalFieldsInt = 0;
     private List<String> duplicateFields = new ArrayList<>();
     private int duplicateFieldsInt = 0;
+
     public ArrayList<classAnalyserFrame> getClassAnalysers() {
         return classAnalysers;
     }
@@ -95,7 +96,7 @@ public class mainAnalyser {
         for (classAnalyserFrame a : this.classAnalysers) {
             if (a.hasMethodAnalyser) {
                 a.getMethodAnalyser().identify();
-                for (hook f: a.getMethodAnalyser().getHooks()) {
+                for (hook f : a.getMethodAnalyser().getHooks()) {
                     if (f.isDuplicate()) {
                         duplicateFieldsInt += 1;
                         duplicateFields.add(f.getId());
@@ -116,7 +117,7 @@ public class mainAnalyser {
             if (!a.hasMethodAnalyser)
                 continue;
             if (a.getMethodAnalyser().getNeededHooks().size() != a.getMethodAnalyser().getHooks().size()) {
-                for (String f: a.getMethodAnalyser().getNeededHooks()) {
+                for (String f : a.getMethodAnalyser().getNeededHooks()) {
                     if (!a.getMethodAnalyser().containsHook(f)) {
                         Scanner inputField = new Scanner(System.in);
                         System.out.println(a.getId() + "." + f + " broke :/");
@@ -133,7 +134,7 @@ public class mainAnalyser {
         }
     }
 
-    private void addMultis(){
+    private void addMultis() {
         int multis = 0;
         boolean staticc;
         System.out.println("%% Populating Multipliers..");
@@ -268,7 +269,7 @@ public class mainAnalyser {
             addMultis();
         if (eUpdater.simbaPrint)
             simbaPrint();
-        if(eUpdater.logPrint)
+        if (eUpdater.logPrint)
             logPrint();
         access = this;
         if (eUpdater.doRefactor)

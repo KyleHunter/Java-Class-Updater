@@ -24,7 +24,7 @@ public class floorDecoration extends methodAnalyserFrame {
 
         MethodNode method = null;
         for (classFrame c : CLASSES.values()) {
-            method = c.getMethod(true,"(IIIIL" + classes.myRenderable.getName() + ";II)V");
+            method = c.getMethod(true, "(IIIIL" + classes.myRenderable.getName() + ";II)V");
             if (method != null)
                 break;
         }
@@ -32,7 +32,7 @@ public class floorDecoration extends methodAnalyserFrame {
         AbstractInsnNode[] Instructions = method.instructions.toArray();
         int L = 0;
         int S = 0;
-        for (int I = 0; L != -1; ++ I) {
+        for (int I = 0; L != -1; ++I) {
             L = search.find(new int[]{Opcodes.ALOAD, Opcodes.ALOAD, Opcodes.PUTFIELD}, I);
             if (((VarInsnNode) Instructions[L]).var == 8 && ((VarInsnNode) Instructions[L + 1]).var == 5) {
                 S = L;

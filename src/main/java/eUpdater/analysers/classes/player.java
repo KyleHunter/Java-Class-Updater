@@ -1,9 +1,9 @@
 package eUpdater.analysers.classes;
 
-import eUpdater.frame.classFrame;
 import eUpdater.analysers.methods.methods;
-import org.objectweb.asm.tree.FieldNode;
+import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
+import org.objectweb.asm.tree.FieldNode;
 
 /**
  * Created by Kyle on 7/22/2015.

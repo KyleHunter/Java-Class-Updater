@@ -39,9 +39,9 @@ public abstract class classAnalyserFrame {
         nodes.add(c);
         if (nodes.size() > 1) {
             if (!c.name.equals(nodes.get(nodes.size() - 2).name))
-                ++ count;
+                ++count;
         } else {
-            ++ count;
+            ++count;
         }
     }
 
@@ -79,7 +79,8 @@ public abstract class classAnalyserFrame {
                 this.set(c);
                 return true;
             }
-        } return false;
+        }
+        return false;
     }
 
     public void setMethodAnalyser(methodAnalyserFrame m) {

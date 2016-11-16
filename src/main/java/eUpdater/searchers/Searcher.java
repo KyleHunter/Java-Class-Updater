@@ -113,7 +113,7 @@ public class Searcher {
         if (startLine == -1)
             return -1;
         for (int I = startLine; Counter < linesUp; ++I) {
-            ++ Counter;
+            ++Counter;
             if (instruction[I].getOpcode() == Jump) {
                 I = instructions.indexOf(((JumpInsnNode) instruction[I]).label);
             }
@@ -159,9 +159,9 @@ public class Searcher {
         for (int i = 0, j = 0; i < Instructions.length; ++i) {
             int k = i, l = j;
             while ((Instructions[k].getOpcode() == Pattern[l] || WILDCARD == Pattern[l])
-                    || (IF == Pattern[l] && Instructions[k].getOpcode() > 158  && Instructions[k].getOpcode() < 167) ||
-                    (CONSTPUSH == Pattern[l] && Instructions[k].getOpcode() > 0  && Instructions[k].getOpcode() < 18)||
-            (SHORTIF == Pattern[l] && Instructions[k].getOpcode() > 152  && Instructions[k].getOpcode() < 159)){
+                    || (IF == Pattern[l] && Instructions[k].getOpcode() > 158 && Instructions[k].getOpcode() < 167) ||
+                    (CONSTPUSH == Pattern[l] && Instructions[k].getOpcode() > 0 && Instructions[k].getOpcode() < 18) ||
+                    (SHORTIF == Pattern[l] && Instructions[k].getOpcode() > 152 && Instructions[k].getOpcode() < 159)) {
                 ++k;
                 ++l;
 
@@ -202,9 +202,9 @@ public class Searcher {
             int k = i, l = j;
 
             while ((Instructions[k].getOpcode() == Pattern[l] || WILDCARD == Pattern[l])
-                    || (IF == Pattern[l] && Instructions[k].getOpcode() > 158  && Instructions[k].getOpcode() < 167) ||
-                    (CONSTPUSH == Pattern[l] && Instructions[k].getOpcode() > 0  && Instructions[k].getOpcode() < 18)||
-                    (SHORTIF == Pattern[l] && Instructions[k].getOpcode() > 152  && Instructions[k].getOpcode() < 159)){
+                    || (IF == Pattern[l] && Instructions[k].getOpcode() > 158 && Instructions[k].getOpcode() < 167) ||
+                    (CONSTPUSH == Pattern[l] && Instructions[k].getOpcode() > 0 && Instructions[k].getOpcode() < 18) ||
+                    (SHORTIF == Pattern[l] && Instructions[k].getOpcode() > 152 && Instructions[k].getOpcode() < 159)) {
                 ++k;
                 ++l;
 
@@ -233,8 +233,8 @@ public class Searcher {
         return -1;
     }
 
-    public int findMultiPatterns(int[][] Patterns, int instance){
-        for (int I = 0; I < Patterns.length; ++ I) {
+    public int findMultiPatterns(int[][] Patterns, int instance) {
+        for (int I = 0; I < Patterns.length; ++I) {
             int L = find(Patterns[I], instance);
             if (L != -1) {
                 return L;

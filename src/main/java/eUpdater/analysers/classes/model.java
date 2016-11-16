@@ -3,6 +3,7 @@ package eUpdater.analysers.classes;
 import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
 import org.objectweb.asm.tree.MethodNode;
+
 import java.util.List;
 
 /**

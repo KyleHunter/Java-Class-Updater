@@ -3,14 +3,20 @@ package eUpdater.deob;
  * Created by Kyle on 1/12/2015.
  */
 
-import org.objectweb.asm.*;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.MethodInsnNode;
+import org.objectweb.asm.tree.MethodNode;
+
 import java.io.IOException;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static eUpdater.misc.JarHandler.CLASSES;
 
-public final class Method extends DeobFrame{
+public final class Method extends DeobFrame {
 
     static ArrayList<MethodInfo> totalMethods = new ArrayList();
     static ArrayList<MethodInfo> goodMethods = new ArrayList();
@@ -48,14 +54,15 @@ public final class Method extends DeobFrame{
             if (hasMethod(superClass, methodInfo.name, methodInfo.desc))
                 return true;
             superClassName = superClass.superName;
-        } return false;
+        }
+        return false;
     }
 
     private static void getInvoked(ClassNode Class) {
         List<MethodNode> Methods = Class.methods;
         for (MethodNode Method : Methods) {
             AbstractInsnNode[] Instructions = Method.instructions.toArray();
-            for (AbstractInsnNode Instruction : Instructions){
+            for (AbstractInsnNode Instruction : Instructions) {
                 if (Instruction instanceof MethodInsnNode) {
                     MethodInsnNode methodInstruction = (MethodInsnNode) Instruction;
                     MethodInfo instructionInfo = new MethodInfo(methodInstruction.owner, methodInstruction.name, methodInstruction.desc);
@@ -114,16 +121,17 @@ public final class Method extends DeobFrame{
                         if (Method.name.equals(removeMethods.get(I).name)) {
                             if (Method.desc.equals(removeMethods.get(I).desc)) {
                                 classNode.methods.remove(Method);
-                                ++ tempResult;
+                                ++tempResult;
                             }
                         }
                     }
                 }
             }
-        } return  tempResult;
+        }
+        return tempResult;
     }
 
-    public int Run () {
+    public int Run() {
         for (ClassNode Class : CLASSES.values()) {
             getInterfaces(Class);
             getInvoked(Class);

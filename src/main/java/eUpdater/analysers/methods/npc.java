@@ -5,7 +5,9 @@ import eUpdater.frame.hook;
 import eUpdater.misc.classes;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.MethodNode;
 
 import java.util.Collections;
 

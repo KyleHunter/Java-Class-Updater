@@ -24,7 +24,7 @@ public class wallDecoration extends methodAnalyserFrame {
 
         MethodNode method = null;
         for (classFrame c : CLASSES.values()) {
-            method = c.getMethod(true,"(IIIIL" + classes.myRenderable.getName() +
+            method = c.getMethod(true, "(IIIIL" + classes.myRenderable.getName() +
                     ";L" + classes.myRenderable.getName() + ";IIIIII)V");
             if (method != null)
                 break;

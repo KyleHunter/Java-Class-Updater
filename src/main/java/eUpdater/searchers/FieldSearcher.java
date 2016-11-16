@@ -1,7 +1,9 @@
 package eUpdater.searchers;
 
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.FieldNode;
+
 import java.util.List;
-import org.objectweb.asm.tree.*;
 
 public class FieldSearcher {
 
@@ -67,7 +69,7 @@ public class FieldSearcher {
     public boolean findValue(int Acc) {
 
         for (FieldNode Field : Fields) {
-            if (Field.value != null){
+            if (Field.value != null) {
                 if (((int) Field.value) == Acc) {
                     return true;
                 }
@@ -83,7 +85,7 @@ public class FieldSearcher {
                 if (Count == Instance)
                     return Field;
                 else
-                    ++ Count;
+                    ++Count;
             }
         }
         return null;

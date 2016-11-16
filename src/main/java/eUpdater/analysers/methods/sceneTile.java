@@ -2,6 +2,7 @@ package eUpdater.analysers.methods;
 
 import eUpdater.frame.hook;
 import eUpdater.misc.classes;
+
 import java.util.Arrays;
 
 /**

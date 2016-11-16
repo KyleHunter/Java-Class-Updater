@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by Kyle on 10/16/2015.
  */
-public class cacheable extends methodAnalyserFrame{
+public class cacheable extends methodAnalyserFrame {
 
     public void identify() {
         this.setParent("Cacheable", classes.myCacheable);
@@ -28,7 +28,7 @@ public class cacheable extends methodAnalyserFrame{
 
             AbstractInsnNode[] instructions = method.instructions.toArray();
             Searcher search = new Searcher(method);
-            int L =search.find(new int[] {Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.IFNONNULL}, 0);
+            int L = search.find(new int[]{Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.IFNONNULL}, 0);
             if (instructions[L + 1] instanceof FieldInsnNode) {
                 addHook(new hook("Next", instructions, L + 1));
 

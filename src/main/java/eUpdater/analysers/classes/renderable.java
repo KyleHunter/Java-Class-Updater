@@ -1,17 +1,18 @@
 package eUpdater.analysers.classes;
 
+import eUpdater.analysers.methods.methods;
 import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
-import eUpdater.analysers.methods.methods;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.MethodNode;
+
 import java.util.List;
 
 /**
  * Created by Kyle on 7/21/2015.
  */
-public class renderable extends classAnalyserFrame{
+public class renderable extends classAnalyserFrame {
 
     public void identify(classFrame c) {
         this.setId("Renderable");

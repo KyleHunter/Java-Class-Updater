@@ -6,6 +6,7 @@ import eUpdater.misc.classes;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -69,7 +70,7 @@ public class client extends methodAnalyserFrame {
                     L = search.find(new int[]{Opcodes.IINC}, I);
                     if (L != -1) {
                         Instructions = m.instructions.toArray();
-                        if(((IincInsnNode) Instructions[L]).incr == 8 && ((IincInsnNode) Instructions[L]).var == 3) {
+                        if (((IincInsnNode) Instructions[L]).incr == 8 && ((IincInsnNode) Instructions[L]).var == 3) {
                             method = m;
                             break;
                         }
@@ -99,7 +100,7 @@ public class client extends methodAnalyserFrame {
         for (ClassNode Class : CLASSES.values()) {
             List<MethodNode> methodList = Class.methods;
             for (MethodNode Method : methodList) {
-                if (Method.desc.contains("(Ljava/lang/String;Ljava/lang/String;IIII")){
+                if (Method.desc.contains("(Ljava/lang/String;Ljava/lang/String;IIII")) {
                     search = new Searcher(Method);
                     L = search.find(new int[]{Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.SIPUSH, Searcher.IF}, 0);
                     if (L != -1) {
@@ -126,10 +127,10 @@ public class client extends methodAnalyserFrame {
         boolean found = false;
         for (int I = 0; I < 3; ++I) {
             L = search.find(new int[]{Opcodes.GETSTATIC, Opcodes.GETSTATIC}, I);
-            if (((FieldInsnNode)Instructions[L]).desc.contains("["))
+            if (((FieldInsnNode) Instructions[L]).desc.contains("["))
                 addHook(new hook("LocalPlayers", Instructions, L));
             else {
-                if(!found) {
+                if (!found) {
                     addHook(new hook("Region", Instructions, L));
                     addHook(new hook("Plane", Instructions, L + 1));
                     found = true;
@@ -141,8 +142,8 @@ public class client extends methodAnalyserFrame {
         int S = L;
         for (int I = 0; I < 2; ++I) {
             L = search.find(new int[]{Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.GETSTATIC,
-                    Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Opcodes.BIPUSH, Opcodes.ISHR} , I);
-            if (((FieldInsnNode) Instructions[L]).name.equals(((FieldInsnNode)Instructions[S + 1]).name))
+                    Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Opcodes.BIPUSH, Opcodes.ISHR}, I);
+            if (((FieldInsnNode) Instructions[L]).name.equals(((FieldInsnNode) Instructions[S + 1]).name))
                 continue;
             else
                 addHook(new hook("DestinationY", Instructions, L));
@@ -213,7 +214,7 @@ public class client extends methodAnalyserFrame {
                 search = new Searcher(m);
                 Instructions = m.instructions.toArray();
                 L = search.find(new int[]{Opcodes.GETSTATIC, Opcodes.ICONST_1,
-                Opcodes.AALOAD}, 0);
+                        Opcodes.AALOAD}, 0);
                 if (L != -1 && ((FieldInsnNode) Instructions[L]).desc.equals("[[[B")) {
                     addHook(new hook("TileSettings", Instructions, L)); //TODO FIX TEH BROKE
                     method = m;
@@ -230,7 +231,7 @@ public class client extends methodAnalyserFrame {
                 search = new Searcher(Method);
                 L = search.find(new int[]{Opcodes.GETSTATIC, Opcodes.ILOAD, Opcodes.AALOAD, Opcodes.ASTORE}, 0);
                 if (L != -1) {
-                    if(((FieldInsnNode) Instructions[L]).desc.equals("[[[I")) {
+                    if (((FieldInsnNode) Instructions[L]).desc.equals("[[[I")) {
                         addHook(new hook("TileHeights", Instructions, L));
                         break out;
                     }

@@ -6,19 +6,19 @@ package eUpdater.misc;
 public class timer {
     private long startTime;
 
-    public timer(){
+    public timer() {
     }
 
-    public timer(boolean startTime){
+    public timer(boolean startTime) {
         if (startTime)
             startTime();
     }
 
-    public void startTime(){
+    public void startTime() {
         startTime = System.nanoTime() / 1000000;
     }
 
-    public long getElapsedTime(){
+    public long getElapsedTime() {
         return (System.nanoTime() / 1000000) - startTime;
     }
 

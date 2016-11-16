@@ -1,16 +1,16 @@
 package eUpdater.analysers.classes;
 
-import eUpdater.frame.classFrame;
 import eUpdater.analysers.methods.methods;
-import org.objectweb.asm.tree.MethodNode;
+import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
+import org.objectweb.asm.tree.MethodNode;
 
 import java.util.List;
 
 /**
  * Created by Kyle on 7/22/2015.
  */
-public class npcDefinition extends classAnalyserFrame{
+public class npcDefinition extends classAnalyserFrame {
 
     public void identify(classFrame c) {
         classes.myNpcDefinition.setId("NpcDefinition");

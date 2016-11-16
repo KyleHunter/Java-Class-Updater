@@ -4,7 +4,10 @@ import eUpdater.frame.hook;
 import eUpdater.misc.classes;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.FieldNode;
+import org.objectweb.asm.tree.MethodNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +31,7 @@ public class hashTable extends methodAnalyserFrame {
             if (L != -1) {
                 AbstractInsnNode[] Instructions = m.instructions.toArray();
                 if (((FieldInsnNode) Instructions[L]).name.equals(methods.myHashTable.getHook("Buckets").getName())) {
-                    L = Search.find(new int[] {Opcodes.GETFIELD}, 0, L + 1);
+                    L = Search.find(new int[]{Opcodes.GETFIELD}, 0, L + 1);
                     if (L != -1 && ((FieldInsnNode) Instructions[L]).desc.equals("I")) {
                         addHook(new hook("Size", Instructions, L));
                         break;
@@ -38,7 +41,7 @@ public class hashTable extends methodAnalyserFrame {
         }
 
         List<FieldNode> fs = parentClass.getFields("I");
-        for (FieldNode f: fs) {
+        for (FieldNode f : fs) {
             if (!f.name.equals(methods.myHashTable.getHook("Size").getName()))
                 addHook(new hook("Index", f));
         }

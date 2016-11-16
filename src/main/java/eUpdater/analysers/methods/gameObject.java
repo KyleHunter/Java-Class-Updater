@@ -25,7 +25,7 @@ public class gameObject extends methodAnalyserFrame {
 
         MethodNode method = null;
         for (classFrame c : CLASSES.values()) {
-            method = c.getMethod(true,"(IIIIIIIIL" + classes.myRenderable.getName() + ";IZII)Z");
+            method = c.getMethod(true, "(IIIIIIIIL" + classes.myRenderable.getName() + ";IZII)Z");
             if (method != null)
                 break;
         }
@@ -33,7 +33,7 @@ public class gameObject extends methodAnalyserFrame {
         AbstractInsnNode[] Instructions = method.instructions.toArray();
         int L = 0;
         int S = 0;
-        for (int I = 0; L != -1; ++ I) {
+        for (int I = 0; L != -1; ++I) {
             L = search.find(new int[]{Opcodes.ALOAD, Opcodes.ILOAD, Opcodes.LDC, Opcodes.IMUL, Opcodes.PUTFIELD}, I);
             if (((VarInsnNode) Instructions[L + 1]).var == 12) {
                 S = L;

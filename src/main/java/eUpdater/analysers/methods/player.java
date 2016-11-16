@@ -7,10 +7,11 @@ import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.MethodNode;
-import static eUpdater.misc.JarHandler.CLASSES;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static eUpdater.misc.JarHandler.CLASSES;
 
 /**
  * Created by Kyle on 11/10/2015.

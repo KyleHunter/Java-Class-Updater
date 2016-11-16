@@ -23,7 +23,7 @@ public class renderable extends methodAnalyserFrame {
         for (MethodNode method : methodList) {
             if (method.desc.contains("(IIIIIIII")) {
                 Searcher Search = new Searcher(method);
-                int L = Search.find(new int[] {Opcodes.ALOAD, Opcodes.ILOAD, Opcodes.ILOAD, Opcodes.ILOAD, Opcodes.ILOAD, Opcodes.ILOAD}, 0);
+                int L = Search.find(new int[]{Opcodes.ALOAD, Opcodes.ILOAD, Opcodes.ILOAD, Opcodes.ILOAD, Opcodes.ILOAD, Opcodes.ILOAD}, 0);
                 if (L > 0) {
                     FieldSearcher fs = new FieldSearcher(parentClass);
                     Searcher search = new Searcher(method);
@@ -32,5 +32,5 @@ public class renderable extends methodAnalyserFrame {
             }
         }
     }
-    
+
 }

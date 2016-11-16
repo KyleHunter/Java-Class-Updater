@@ -16,7 +16,7 @@ import java.util.List;
 
 import static eUpdater.misc.JarHandler.CLASSES;
 
-public class Multipliers extends DeobFrame{
+public class Multipliers extends DeobFrame {
 
     public int Run() {
         int[][] Patterns = new int[][]{
@@ -45,8 +45,8 @@ public class Multipliers extends DeobFrame{
                         }
                         Instructions.add(L + afterField, Instructions.get(L));
                         Instructions.remove(L);
-                        ++ Count;
-                        ++ Fixed;
+                        ++Count;
+                        ++Fixed;
                         L = Search.find(Pattern, Count);
                     }
                 }

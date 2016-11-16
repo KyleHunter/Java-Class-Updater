@@ -2,8 +2,6 @@ package eUpdater.misc;
 
 import eUpdater.analysers.classes.*;
 
-import java.util.List;
-
 /**
  * Created by Kyle on 7/22/2015.
  */
@@ -34,8 +32,8 @@ public class classes {
     public static sceneTile mySceneTile = new sceneTile();
     public static item myItem = new item();
 
-   // public List<String> getClassData() {
+    // public List<String> getClassData() {
 
-  //  }
+    //  }
 
 }

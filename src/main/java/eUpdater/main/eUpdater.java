@@ -1,7 +1,10 @@
 package eUpdater.main;
+
 import eUpdater.analysers.mainAnalyser;
 import eUpdater.deob.Deobsfucate;
-import eUpdater.misc.*;
+import eUpdater.misc.JarHandler;
+import eUpdater.misc.timer;
+
 import java.io.File;
 
 
@@ -11,7 +14,7 @@ public class eUpdater {
     public static final boolean logPrint = true;
 
     static boolean forceDownload = false;
-    static boolean forceDeob = false;
+    static boolean forceDeob = true;
 
     public static final boolean findMultis = true;
     public static final boolean doRefactor = false;
@@ -36,11 +39,12 @@ public class eUpdater {
         if (!file.exists()) {
             downloadPack();
             deobPack();
-        }
-       else if (!forceDownload)
+        } else if (!forceDownload)
             System.out.println("Gamepack already downloaded..\n");
+
         if (forceDownload)
             downloadPack();
+
         if (forceDeob || forceDownload)
             deobPack();
 

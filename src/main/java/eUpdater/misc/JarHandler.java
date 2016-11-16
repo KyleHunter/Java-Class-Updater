@@ -1,5 +1,10 @@
 package eUpdater.misc;
 
+import eUpdater.frame.classFrame;
+import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassWriter;
+import org.objectweb.asm.tree.ClassNode;
+
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,11 +16,6 @@ import java.util.HashMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.JarOutputStream;
-
-import eUpdater.frame.classFrame;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.tree.ClassNode;
 
 
 public final class JarHandler {
@@ -35,7 +35,8 @@ public final class JarHandler {
         new JarHandler(File);
     }
 
-    public HashMap<String, classFrame> parseJar(JarFile jar) {HashMap<String, classFrame> classes = new HashMap<>();
+    public HashMap<String, classFrame> parseJar(JarFile jar) {
+        HashMap<String, classFrame> classes = new HashMap<>();
         try {
             Enumeration<?> enumeration = jar.entries();
             while (enumeration.hasMoreElements()) {

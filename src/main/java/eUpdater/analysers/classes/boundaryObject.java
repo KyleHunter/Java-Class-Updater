@@ -2,8 +2,8 @@ package eUpdater.analysers.classes;
 
 import eUpdater.analysers.methods.methods;
 import eUpdater.frame.classFrame;
-import org.objectweb.asm.Opcodes;
 import eUpdater.misc.classes;
+import org.objectweb.asm.Opcodes;
 
 /**
  * Created by Kyle on 7/23/2015.

@@ -6,14 +6,18 @@ package eUpdater.deob;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.MethodInsnNode;
+import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static eUpdater.misc.JarHandler.CLASSES;
 
-public class MethodName extends DeobFrame{
+public class MethodName extends DeobFrame {
     public static void removeLastParam(MethodNode Method) {
         String Desc = Method.desc;
         StringBuilder descBuilder = new StringBuilder(Desc);
@@ -34,6 +38,7 @@ public class MethodName extends DeobFrame{
     }
 
     public static ArrayList<MethodInfo> dummyParamMethods = new ArrayList();
+
     public static int Run() {
         int fixedParams = 0;
         for (ClassNode classNode : CLASSES.values()) {
@@ -49,8 +54,7 @@ public class MethodName extends DeobFrame{
                     String lastParam;
                     if (paramCount > 1) {
                         lastParam = types[paramCount - 2].toString();
-                    } else
-                    if (paramCount == 1)
+                    } else if (paramCount == 1)
                         lastParam = types[paramCount - 1].toString();
                     else
                         continue;
@@ -137,7 +141,7 @@ public class MethodName extends DeobFrame{
         int Total = 0;
         int Fixed = 10;
         while (Fixed != 0 && fSafe < 5) {
-            ++ fSafe;
+            ++fSafe;
             Fixed = Run();
             Total = Total + Fixed;
         }

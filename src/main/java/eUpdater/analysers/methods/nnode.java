@@ -33,7 +33,7 @@ public class nnode extends methodAnalyserFrame {
         FieldSearcher fs = new FieldSearcher(parentClass);
         addHook(new hook("UID", fs.findDesc("J")));
 
-        for (int I = 0; I < 3; ++ I) {
+        for (int I = 0; I < 3; ++I) {
             if (getHook("Prev").getName().equals(fs.findDescInstance(String.format("L%s;", parentClass.name), I).name))
                 continue;
             addHook(new hook("Next", fs.findDescInstance(String.format("L%s;", parentClass.name), I)));

@@ -14,7 +14,7 @@ public class wallDecoration extends classAnalyserFrame {
         this.setId("WallDecoration");
         this.setMethodAnalyser(methods.myWallDecoration);
         if ((c.getFields("L" + classes.myRenderable.getName() + ";").size() == 2)
-                &&(c.getFields(Opcodes.ACC_PUBLIC, Opcodes.ACC_STATIC).size() == 8))
+                && (c.getFields(Opcodes.ACC_PUBLIC, Opcodes.ACC_STATIC).size() == 8))
             this.set(c);
     }
 }

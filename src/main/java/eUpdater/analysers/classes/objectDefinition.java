@@ -1,9 +1,10 @@
 package eUpdater.analysers.classes;
 
+import eUpdater.analysers.methods.methods;
 import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
-import eUpdater.analysers.methods.methods;
 import org.objectweb.asm.tree.MethodNode;
+
 import java.util.List;
 
 /**

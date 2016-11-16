@@ -2,9 +2,10 @@ package eUpdater.analysers.classes;
 
 import eUpdater.analysers.methods.methods;
 import eUpdater.frame.classFrame;
+import eUpdater.misc.classes;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.FieldNode;
-import eUpdater.misc.classes;
+
 import java.util.List;
 
 /**

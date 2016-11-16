@@ -1,12 +1,14 @@
 package eUpdater.analysers.methods;
 
-import eUpdater.deob.Method;
 import eUpdater.frame.classFrame;
 import eUpdater.frame.hook;
 import eUpdater.misc.classes;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.IincInsnNode;
+import org.objectweb.asm.tree.LdcInsnNode;
+import org.objectweb.asm.tree.MethodNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -32,9 +34,9 @@ public class actor extends methodAnalyserFrame {
             if (method != null) {
                 Instructions = method.instructions.toArray();
                 search = new Searcher(method);
-                int L = search.find(new int[] {Opcodes.GETFIELD}, 0);
+                int L = search.find(new int[]{Opcodes.GETFIELD}, 0);
                 addHook(new hook("WorldX", Instructions, L));
-                L = search.find(new int[] {Opcodes.GETFIELD}, 1);
+                L = search.find(new int[]{Opcodes.GETFIELD}, 1);
                 addHook(new hook("WorldY", Instructions, L));
             }
         }
@@ -53,8 +55,8 @@ public class actor extends methodAnalyserFrame {
                     if (L != -1)
                         if ((((IincInsnNode) Instructions[L]).incr) == -2048) {
                             L = search.find(new int[]{Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL,
-                                Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD,
-                                Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 1);
+                                    Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD,
+                                    Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 1);
                             addHook(new hook("QueueX", Instructions, L + 4));
                             L = search.find(new int[]{Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL,
                                     Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD,

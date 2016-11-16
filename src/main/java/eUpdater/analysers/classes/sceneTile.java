@@ -4,6 +4,7 @@ import eUpdater.analysers.methods.methods;
 import eUpdater.frame.classFrame;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.FieldNode;
+
 import java.util.List;
 
 /**

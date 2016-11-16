@@ -1,7 +1,7 @@
 package eUpdater.analysers.classes;
 
-import eUpdater.frame.classFrame;
 import eUpdater.analysers.methods.methods;
+import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
 
 /**

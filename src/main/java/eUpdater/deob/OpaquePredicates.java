@@ -5,15 +5,18 @@ package eUpdater.deob;
 
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.JumpInsnNode;
+import org.objectweb.asm.tree.LabelNode;
+import org.objectweb.asm.tree.MethodNode;
 
 import java.util.List;
 
 import static eUpdater.misc.JarHandler.CLASSES;
 
-public class OpaquePredicates extends DeobFrame{
+public class OpaquePredicates extends DeobFrame {
 
-    public static int Run(){
+    public static int Run() {
         int Fixed = 0;
         int Patterns[][] = Patterns = new int[][]{
                 {Opcodes.ILOAD, Searcher.CONSTPUSH, Searcher.IF, Opcodes.RETURN},
@@ -42,6 +45,7 @@ public class OpaquePredicates extends DeobFrame{
         }
         return Fixed;
     }
+
     public int Deob() {
         int Total = 0;
         int Fixed = 10;

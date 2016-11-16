@@ -5,7 +5,10 @@ import eUpdater.frame.hook;
 import eUpdater.misc.classes;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.IntInsnNode;
+import org.objectweb.asm.tree.MethodNode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,15 +31,15 @@ public class widget extends methodAnalyserFrame {
         MethodNode method = null;
         for (classFrame c : CLASSES.values()) {
             List<MethodNode> methodList = c.methods;
-                for (MethodNode m : methodList){
-                    int L = 0;
-                    AbstractInsnNode[] Instructions = m.instructions.toArray();
-                    Searcher search = new Searcher(m);
-                    for (int I = 0; L != -1; ++I) {
-                        L = search.find(new int[]{Opcodes.SIPUSH}, I);
-                        if (L != -1)
-                            if ((((IntInsnNode) Instructions[L]).operand == 2100))
-                                method = m;
+            for (MethodNode m : methodList) {
+                int L = 0;
+                AbstractInsnNode[] Instructions = m.instructions.toArray();
+                Searcher search = new Searcher(m);
+                for (int I = 0; L != -1; ++I) {
+                    L = search.find(new int[]{Opcodes.SIPUSH}, I);
+                    if (L != -1)
+                        if ((((IntInsnNode) Instructions[L]).operand == 2100))
+                            method = m;
                 }
             }
         }
@@ -46,7 +49,7 @@ public class widget extends methodAnalyserFrame {
         int L = search.findSingleIntValue(Opcodes.SIPUSH, 1701);
         L = search.find(new int[]{Opcodes.GETFIELD}, 0, L);
         addHook(new hook("ItemID", Instructions, L));
-        
+
         L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETFIELD, L + 5, 15, 0);
         addHook(new hook("ItemAmount", Instructions, L));
 
@@ -131,7 +134,7 @@ public class widget extends methodAnalyserFrame {
             if (!Method.desc.contains("(II") || !Method.desc.contains("V"))
                 continue;
             Searcher Search = new Searcher(Method);
-            for (int I = 0; I < 10; ++ I) {
+            for (int I = 0; I < 10; ++I) {
                 L = Search.findSingle(Opcodes.GETFIELD, I);
                 if (L != -1) {
                     AbstractInsnNode[] instructions = Method.instructions.toArray();
@@ -142,7 +145,6 @@ public class widget extends methodAnalyserFrame {
                 }
             }
         }
-
 
 
     }

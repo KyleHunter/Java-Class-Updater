@@ -39,12 +39,13 @@ public abstract class methodAnalyserFrame {
         for (hook f : fs) {
             if (f.getId().equals(id))
                 return f;
-        } return null;
+        }
+        return null;
     }
 
     public boolean containsHook(String s) {
         ArrayList<hook> ours = this.fields;
-        for (hook ourField: ours)
+        for (hook ourField : ours)
             if (ourField.getId().equals(s)) {
                 ourField.setDuplicate(true);
                 return true;
@@ -68,7 +69,7 @@ public abstract class methodAnalyserFrame {
                 temp.add(this.getHook(f));
             }
         }
-        for (hook f: this.getHooks()){
+        for (hook f : this.getHooks()) {
             if (f.getName().equals("NULL"))
                 temp.add(f);
         }
@@ -82,7 +83,7 @@ public abstract class methodAnalyserFrame {
                 temp.add(this.getHook(f));
             }
         }
-        for (hook f: this.getHooks()){
+        for (hook f : this.getHooks()) {
             if (f.getName().equals("NULL"))
                 temp.add(f);
         }

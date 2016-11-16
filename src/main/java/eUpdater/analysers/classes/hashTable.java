@@ -1,9 +1,9 @@
 package eUpdater.analysers.classes;
 
-import eUpdater.frame.classFrame;
 import eUpdater.analysers.methods.methods;
-import eUpdater.searchers.FieldSearcher;
+import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
+import eUpdater.searchers.FieldSearcher;
 
 /**
  * Created by Kyle on 7/22/2015.

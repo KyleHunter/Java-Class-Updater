@@ -1,15 +1,15 @@
 package eUpdater.analysers.classes;
 
-import eUpdater.frame.classFrame;
 import eUpdater.analysers.methods.methods;
-import eUpdater.searchers.FieldSearcher;
+import eUpdater.frame.classFrame;
 import eUpdater.misc.classes;
+import eUpdater.searchers.FieldSearcher;
 
 
 /**
  * Created by Kyle on 7/22/2015.
  */
-public class linkedList extends classAnalyserFrame{
+public class linkedList extends classAnalyserFrame {
 
     public void identify(classFrame c) {
         classes.myLinkedList.setId("linkedList");

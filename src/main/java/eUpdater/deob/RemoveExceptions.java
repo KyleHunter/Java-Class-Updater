@@ -6,13 +6,14 @@ package eUpdater.deob;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
+
 import java.util.List;
 
 import static eUpdater.misc.JarHandler.CLASSES;
 
-public class RemoveExceptions extends DeobFrame{
+public class RemoveExceptions extends DeobFrame {
 
-    public static int Run(){
+    public static int Run() {
         int Patterns[][] = new int[][]{
                 {Opcodes.ILOAD, Opcodes.LDC, Searcher.IF, Opcodes.NEW, Opcodes.DUP, Opcodes.INVOKESPECIAL, Opcodes.ATHROW},
                 {Opcodes.ILOAD, Searcher.CONSTPUSH, Searcher.IF, Opcodes.NEW, Opcodes.DUP, Opcodes.INVOKESPECIAL, Opcodes.ATHROW},
@@ -30,7 +31,7 @@ public class RemoveExceptions extends DeobFrame{
                     int Check = 0;
                     out:
                     while (L != -1) {
-                        ++ Check;
+                        ++Check;
                         if (Check > 100)
                             break out;
                         if (Method.instructions.get(L + 5) instanceof MethodInsnNode) {
@@ -49,6 +50,7 @@ public class RemoveExceptions extends DeobFrame{
 
         return Fixed;
     }
+
     public int Deob() {
         int Total = 0;
         int Fixed = 10;

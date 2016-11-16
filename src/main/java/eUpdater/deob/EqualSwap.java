@@ -3,7 +3,6 @@ package eUpdater.deob;
  * Created by Kyle on 1/12/2015.
  */
 
-import eUpdater.misc.Misc;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
@@ -14,7 +13,7 @@ import java.util.List;
 
 import static eUpdater.misc.JarHandler.CLASSES;
 
-public class EqualSwap extends DeobFrame{
+public class EqualSwap extends DeobFrame {
 
     public int Run() {
         int Patterns[][] = new int[][]{
@@ -50,7 +49,7 @@ public class EqualSwap extends DeobFrame{
                     Method.instructions.add(n);
             }
         }
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.BIPUSH, Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC}
         };
         for (ClassNode Class : CLASSES.values()) {
@@ -65,7 +64,7 @@ public class EqualSwap extends DeobFrame{
                     while (L != -1) {
                         AbstractInsnNode[] instructions = Method.instructions.toArray();
                         int after5 = 0;
-                        for (int I = 0; I < Pattern.length; ++ I) {
+                        for (int I = 0; I < Pattern.length; ++I) {
                             if (instructions[L + I] instanceof FieldInsnNode) {
                                 after5 = L + I + 5;
                                 break;
@@ -84,7 +83,7 @@ public class EqualSwap extends DeobFrame{
                 }
             }
         }
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.BIPUSH, Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC}
         };
         for (ClassNode Class : CLASSES.values()) {
@@ -100,7 +99,7 @@ public class EqualSwap extends DeobFrame{
                         AbstractInsnNode[] instructions = Method.instructions.toArray();
                         int after5 = 0;
                         out:
-                        for (int I = 0; I < Pattern.length; ++ I) {
+                        for (int I = 0; I < Pattern.length; ++I) {
                             int Op = instructions[L + I].getOpcode();
                             if (Op >= Opcodes.IF_ICMPEQ && Op <= Opcodes.IF_ACMPNE) {
                                 after5 = L + I + 5;
@@ -120,7 +119,7 @@ public class EqualSwap extends DeobFrame{
                 }
             }
         }
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.BIPUSH, Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.GETFIELD, Opcodes.LDC},
                 {Opcodes.BIPUSH, Opcodes.GETSTATIC, Opcodes.GETSTATIC, Opcodes.LDC}
         };
@@ -136,7 +135,7 @@ public class EqualSwap extends DeobFrame{
                     while (L != -1) {
                         AbstractInsnNode[] instructions = Method.instructions.toArray();
                         int after4 = 0;
-                        for (int I = 0; I < Pattern.length; ++ I) {
+                        for (int I = 0; I < Pattern.length; ++I) {
                             if (instructions[L + I] instanceof FieldInsnNode) {
                                 after4 = L + I + 4;
                                 break;
@@ -156,7 +155,7 @@ public class EqualSwap extends DeobFrame{
                 }
             }
         }
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.ILOAD, Searcher.IF},
                 {Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.LMUL, Opcodes.ILOAD, Searcher.IF},
         };
@@ -182,7 +181,7 @@ public class EqualSwap extends DeobFrame{
                 }
             }
         }
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Searcher.CONSTPUSH, Opcodes.ILOAD, Searcher.IF},
                 {Searcher.CONSTPUSH, Opcodes.ALOAD, Searcher.IF},
         };
@@ -209,7 +208,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.ACONST_NULL, Opcodes.ALOAD, Opcodes.GETFIELD},
         };
         for (ClassNode Class : CLASSES.values()) {
@@ -235,7 +234,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.LDC, Opcodes.ILOAD, Opcodes.IMUL, Opcodes.PUTSTATIC},
                 {Opcodes.LDC, Opcodes.ILOAD, Opcodes.IMUL, Opcodes.PUTFIELD},
         };
@@ -262,7 +261,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.LDC, Opcodes.GETSTATIC, Opcodes.GETFIELD, Opcodes.IMUL},
         };
         for (ClassNode Class : CLASSES.values()) {
@@ -288,7 +287,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.ALOAD, Opcodes.LDC, Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.GETFIELD, Opcodes.IMUL, Opcodes.PUTFIELD},
         };
         for (ClassNode Class : CLASSES.values()) {
@@ -314,7 +313,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Searcher.CONSTPUSH, Opcodes.GETSTATIC, Searcher.IF},
         };
         for (ClassNode Class : CLASSES.values()) {
@@ -340,7 +339,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Searcher.CONSTPUSH, Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Searcher.IF},
                 {Searcher.CONSTPUSH, Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.LMUL, Searcher.IF},
         };
@@ -367,7 +366,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.LDC, Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Searcher.IF},
                 {Searcher.CONSTPUSH, Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Searcher.IF},
 
@@ -395,7 +394,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.GETSTATIC, Opcodes.LDC, Searcher.CONSTPUSH, Opcodes.IMUL},
         };
         for (ClassNode Class : CLASSES.values()) {
@@ -421,7 +420,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Searcher.CONSTPUSH, Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC},
 
         };
@@ -448,7 +447,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Opcodes.ILOAD, Opcodes.IMUL},
 
         };
@@ -474,7 +473,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.GETSTATIC, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Opcodes.BIPUSH, Opcodes.ISHR, Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.IADD},
                 {Opcodes.GETSTATIC, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Opcodes.BIPUSH, Opcodes.ISHR, Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Searcher.IF},
                 {Opcodes.GETSTATIC, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Opcodes.BIPUSH, Opcodes.ISHL, Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.IADD},
@@ -507,7 +506,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.GETSTATIC, Opcodes.ILOAD, Opcodes.IINC, Opcodes.ILOAD, Opcodes.ILOAD, Opcodes.BIPUSH, Opcodes.ISHL, Opcodes.ILOAD, Opcodes.BIPUSH, Opcodes.ISHL},
 
         };
@@ -537,7 +536,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.GETSTATIC, Opcodes.ILOAD, Opcodes.IINC, Opcodes.ILOAD, Opcodes.BIPUSH, Opcodes.ISHL, Opcodes.ILOAD, Opcodes.ILOAD, Opcodes.BIPUSH},
 
         };
@@ -583,7 +582,7 @@ public class EqualSwap extends DeobFrame{
             }
         }
 
-        Patterns = new int[][] {
+        Patterns = new int[][]{
                 {Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL,
                         Opcodes.ICONST_1, Opcodes.ISUB, Opcodes.IALOAD, Opcodes.SIPUSH, Opcodes.IMUL, Opcodes.ALOAD,
                         Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Opcodes.IADD, Opcodes.ISTORE

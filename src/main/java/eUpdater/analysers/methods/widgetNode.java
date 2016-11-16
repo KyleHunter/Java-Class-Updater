@@ -31,7 +31,7 @@ public class widgetNode extends methodAnalyserFrame {
             MethodNode m = c.getMethod(true, "([L" + classes.myWidget.getName() + ";I)V");
             if (m != null) {
                 int L = 0;
-                for (int I = 0; L != -1; ++ I) {
+                for (int I = 0; L != -1; ++I) {
                     Searcher search = new Searcher(m);
                     AbstractInsnNode[] Instructions = m.instructions.toArray();
                     L = search.find(new int[]{Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL}, I);
@@ -42,8 +42,6 @@ public class widgetNode extends methodAnalyserFrame {
                 }
             }
         }
-
-
 
 
     }

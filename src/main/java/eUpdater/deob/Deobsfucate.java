@@ -22,7 +22,7 @@ public class Deobsfucate {
 
     private void runAnalysers() {
         double totalTime = 0;
-        for (DeobFrame tempDeob: this.Deobs) {
+        for (DeobFrame tempDeob : this.Deobs) {
             long startTime = System.nanoTime();
             tempDeob.Deob();
             long endTime = System.nanoTime();
