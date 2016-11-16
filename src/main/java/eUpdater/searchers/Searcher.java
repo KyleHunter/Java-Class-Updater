@@ -233,6 +233,50 @@ public class Searcher {
         return -1;
     }
 
+    public int find(int[] Pattern, int instance, int startLine, int endLine) {
+        if (startLine == -1 || endLine < startLine) {
+            return -1;
+        }
+        AbstractInsnNode Instructions[] = instructions.toArray();
+        if (endLine == -1)
+            endLine = Instructions.length - 1;
+
+        int Count = 0;
+        for (int i = startLine, j = 0; i < Instructions.length && i <= endLine; ++i) {
+            int k = i, l = j;
+
+            while ((Instructions[k].getOpcode() == Pattern[l] || WILDCARD == Pattern[l])
+                    || (IF == Pattern[l] && Instructions[k].getOpcode() > 158 && Instructions[k].getOpcode() < 167) ||
+                    (CONSTPUSH == Pattern[l] && Instructions[k].getOpcode() > 0 && Instructions[k].getOpcode() < 18) ||
+                    (SHORTIF == Pattern[l] && Instructions[k].getOpcode() > 152 && Instructions[k].getOpcode() < 159)) {
+                ++k;
+                ++l;
+
+                if (Instructions[k].getOpcode() == -1)
+                    ++k;
+
+                if (l == Pattern.length) {
+                    if (Count == instance)
+                        return i;
+                    else {
+                        ++Count;
+                        break;
+                    }
+                }
+
+                if (k == Instructions.length) {
+                    if (Count == instance)
+                        return j;
+                    else {
+                        ++Count;
+                        break;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
     public int findMultiPatterns(int[][] Patterns, int instance) {
         for (int I = 0; I < Patterns.length; ++I) {
             int L = find(Patterns[I], instance);

@@ -5,10 +5,7 @@ import eUpdater.frame.hook;
 import eUpdater.misc.classes;
 import eUpdater.searchers.Searcher;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.AbstractInsnNode;
-import org.objectweb.asm.tree.IincInsnNode;
-import org.objectweb.asm.tree.LdcInsnNode;
-import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,24 +23,24 @@ public class actor extends methodAnalyserFrame {
                 "Animation", "SpokenText", "CombatCycle", "Health", "MaxHealth", "InteractingIndex"));
 
         MethodNode method;
-        Searcher search = null;
+        Searcher search;
         AbstractInsnNode[] Instructions = null;
 
-        for (classFrame c : CLASSES.values()) {
-            method = c.getMethod(true, "(L" + classes.myActor.getName() + ";)V");
-            if (method != null) {
-                Instructions = method.instructions.toArray();
-                search = new Searcher(method);
-                int L = search.find(new int[]{Opcodes.GETFIELD}, 0);
-                addHook(new hook("WorldX", Instructions, L));
-                L = search.find(new int[]{Opcodes.GETFIELD}, 1);
-                addHook(new hook("WorldY", Instructions, L));
-            }
-        }
 
-        boolean found = false;
-        int L = 0;
-        int S;
+//  Causes duplicates
+//        for (classFrame c : CLASSES.values()) {
+//            method = c.getMethod(true, "(L" + classes.myActor.getName() + ";)V");
+//            if (method != null) {
+//                Instructions = method.instructions.toArray();
+//                search = new Searcher(method);
+//                int L = search.find(new int[]{Opcodes.GETFIELD}, 0);
+//                addHook(new hook("WorldX", Instructions, L));
+//                L = search.find(new int[]{Opcodes.GETFIELD}, 1);
+//                addHook(new hook("WorldY", Instructions, L));
+//            }
+//        }
+
+        int L;
         out:
         for (classFrame c : CLASSES.values()) {
             method = c.getMethod(true, "(L" + classes.myActor.getName() + ";)V");
@@ -56,15 +53,71 @@ public class actor extends methodAnalyserFrame {
                         if ((((IincInsnNode) Instructions[L]).incr) == -2048) {
                             L = search.find(new int[]{Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL,
                                     Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD,
-                                    Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 1);
+                                    Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 0);
                             addHook(new hook("QueueX", Instructions, L + 4));
                             L = search.find(new int[]{Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL,
                                     Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD,
-                                    Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 0);
+                                    Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 1);
                             addHook(new hook("QueueY", Instructions, L + 4));
                             addHook(new hook("QueueSize", Instructions, L + 6));
                             break out;
                         }
+                }
+            }
+        }
+
+        if (containsHook("QueueX")) {
+            hook queueHook = getHook("QueueX");
+            for (classFrame c : CLASSES.values()) {
+                method = c.getMethod(true, "(L" + classes.myActor.getName() + ";)V");
+                if (method != null && (method.access & Opcodes.ACC_STATIC) != 0) {
+                    Instructions = method.instructions.toArray();
+                    search = new Searcher(method);
+                    for (int I = 0; I < 1000; ++I) {
+                        L = search.find(new int[]{Opcodes.GETFIELD}, I);
+                        if (L != -1) {
+                            FieldInsnNode queueNode = (FieldInsnNode) Instructions[L];
+                            if (queueNode != null && queueNode.name.equals(queueHook.getName())
+                                    && queueNode.owner.equals(queueHook.getOwner())) {
+                                int H = search.find(new int[]{Opcodes.PUTFIELD}, 0, L, L+10);
+                                if (H != -1) {
+                                    FieldInsnNode xNode = (FieldInsnNode) Instructions[H];
+                                    if (xNode != null && xNode.owner.equals(queueHook.getOwner())
+                                            && xNode.desc.equals("I")) {
+                                        addHook(new hook("WorldX", Instructions, H));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (containsHook("QueueY")) {
+            hook queueHook = getHook("QueueY");
+            for (classFrame c : CLASSES.values()) {
+                method = c.getMethod(true, "(L" + classes.myActor.getName() + ";)V");
+                if (method != null && (method.access & Opcodes.ACC_STATIC) != 0) {
+                    Instructions = method.instructions.toArray();
+                    search = new Searcher(method);
+                    for (int I = 0; I < 1000; ++I) {
+                        L = search.find(new int[]{Opcodes.GETFIELD}, I);
+                        if (L != -1) {
+                            FieldInsnNode queueNode = (FieldInsnNode) Instructions[L];
+                            if (queueNode != null && queueNode.name.equals(queueHook.getName())
+                                    && queueNode.owner.equals(queueHook.getOwner())) {
+                                int H = search.find(new int[]{Opcodes.PUTFIELD}, 0, L, L+10);
+                                if (H != -1) {
+                                    FieldInsnNode yNode = (FieldInsnNode) Instructions[H];
+                                    if (yNode != null && yNode.owner.equals(queueHook.getOwner())
+                                            && yNode.desc.equals("I")) {
+                                        addHook(new hook("WorldY", Instructions, H));
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
