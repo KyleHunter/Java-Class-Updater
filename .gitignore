@@ -1,2 +1,4 @@
 *.jar
-.idea/workspace.xml
+.idea
+res
+target
