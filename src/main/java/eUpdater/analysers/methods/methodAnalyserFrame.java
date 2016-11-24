@@ -47,6 +47,15 @@ public abstract class methodAnalyserFrame {
         ArrayList<hook> ours = this.fields;
         for (hook ourField : ours)
             if (ourField.getId().equals(s)) {
+                return true;
+            }
+        return false;
+    }
+
+    private boolean duplicateHook(hook h) {
+        ArrayList<hook> ours = this.fields;
+        for (hook ourField : ours)
+            if (ourField.getId().equals(h.getId()) && !ourField.getName().equals(h.getName())) {
                 ourField.setDuplicate(true);
                 return true;
             }
@@ -58,8 +67,11 @@ public abstract class methodAnalyserFrame {
     }
 
     public void addHook(hook f) {
-        if (!this.containsHook(f.getId()))
+        if (!this.containsHook(f.getId())) {
             this.fields.add(f);
+            duplicateHook(f);
+        }
+
     }
 
     public ArrayList<hook> getBrokenHooks() {
