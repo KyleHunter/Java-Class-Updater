@@ -6,6 +6,7 @@ import eUpdater.misc.JarHandler;
 import eUpdater.misc.timer;
 
 import java.io.File;
+import java.nio.file.Files;
 
 
 public class eUpdater {
@@ -14,7 +15,7 @@ public class eUpdater {
     public static final boolean logPrint = true;
 
     static boolean forceDownload = false;
-    static boolean forceDeob = true;
+    static boolean forceDeob = false;
 
     public static final boolean findMultis = true;
     public static final boolean doRefactor = false;
@@ -22,7 +23,6 @@ public class eUpdater {
 
     private static void downloadPack() {
         System.out.println("GamePack downloading..");
-        new File("res/Gamepacks/" + Revision).mkdir();
         JarHandler.downloadJar("http://oldschool38.runescape.com/gamepack_2758227.jar", null, "res/Gamepacks/" + Revision + "/");
     }
 
@@ -34,9 +34,13 @@ public class eUpdater {
 
     private static void start() {
         timer t = new timer(true);
+        File gamepacks = new File("res/Gamepacks/");
+        if (!gamepacks.exists())
+            gamepacks.mkdirs();
         File file = new File("res/Gamepacks/" + Revision);
 
         if (!file.exists()) {
+            file.mkdir();
             downloadPack();
             deobPack();
         } else if (!forceDownload)
