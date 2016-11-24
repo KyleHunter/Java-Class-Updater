@@ -13,7 +13,7 @@ public class eUpdater {
     public static final boolean simbaPrint = true;
     public static final boolean logPrint = true;
 
-    static boolean forceDownload = false;
+    static boolean forceDownload = true;
     static boolean forceDeob = true;
 
     public static final boolean findMultis = true;
