@@ -79,7 +79,7 @@ public class actor extends methodAnalyserFrame {
                             FieldInsnNode queueNode = (FieldInsnNode) Instructions[L];
                             if (queueNode != null && queueNode.name.equals(queueHook.getName())
                                     && queueNode.owner.equals(queueHook.getOwner())) {
-                                int H = search.find(new int[]{Opcodes.PUTFIELD}, 0, L, L+10);
+                                int H = search.find(new int[]{Opcodes.PUTFIELD}, 0, L, L + 10);
                                 if (H != -1) {
                                     FieldInsnNode xNode = (FieldInsnNode) Instructions[H];
                                     if (xNode != null && xNode.owner.equals(queueHook.getOwner())
@@ -107,7 +107,7 @@ public class actor extends methodAnalyserFrame {
                             FieldInsnNode queueNode = (FieldInsnNode) Instructions[L];
                             if (queueNode != null && queueNode.name.equals(queueHook.getName())
                                     && queueNode.owner.equals(queueHook.getOwner())) {
-                                int H = search.find(new int[]{Opcodes.PUTFIELD}, 0, L, L+10);
+                                int H = search.find(new int[]{Opcodes.PUTFIELD}, 0, L, L + 10);
                                 if (H != -1) {
                                     FieldInsnNode yNode = (FieldInsnNode) Instructions[H];
                                     if (yNode != null && yNode.owner.equals(queueHook.getOwner())

@@ -6,7 +6,6 @@ import eUpdater.misc.JarHandler;
 import eUpdater.misc.timer;
 
 import java.io.File;
-import java.nio.file.Files;
 
 
 public class eUpdater {
