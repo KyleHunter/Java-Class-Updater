@@ -27,7 +27,7 @@ public class eUpdater {
     }
 
     private static void deobPack() {
-        JarHandler.Parse("res/Gamepacks/" + Revision + "/Gamepack.jar");
+        JarHandler.Parse("res/Gamepacks/" + Revision + "/GamePack.jar");
         new Deobsfucate().Run();
         JarHandler.save("res/Gamepacks/" + Revision + "/Deob.jar");
     }
