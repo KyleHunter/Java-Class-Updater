@@ -9,8 +9,6 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
-import java.io.IOException;
-import java.lang.reflect.Executable;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +47,6 @@ public final class Method extends DeobFrame {
                     ClassReader cr = new ClassReader(superClassName);
                     cr.accept(superClass, 0);
                 } catch (Exception e) {
-                    e.printStackTrace();
                 }
             } else
                 superClass = CLASSES.get(superClassName);

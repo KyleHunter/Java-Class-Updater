@@ -23,8 +23,8 @@ public class client extends methodAnalyserFrame {
                 "MenuActions", "MenuOptions", "LocalPlayers", "Region", "Plane", "DestinationY", "DestinationX", "LocalPlayer", "BaseX",
                 "BaseY", "Widgets", "GameSettings", "CurrentLevels", "RealLevels", "Experiences", "Weight", "Energy", "CurrentWorld",
                 "WidgetNodeCache", "TileSettings", "TileHeights", "LocalNpcs", "NpcIndices", "CrossHairColor", "MapAngle", "MapOffset", "MapScale",
-                "CameraPitch", "Sine", "Cosine", "CameraYaw", "CameraZ", "CameraY", "CameraX", "GroundItems",
-                "LoginState", "PlayerIndex", "WidgetPositionX", "WidgetPositionY", "WidgetWidths", "WidgetHeights"));
+                "Sine", "Cosine", "CameraScale", "CameraPitch", "CameraYaw", "CameraZ", "CameraY", "CameraX", "ViewportWidth", "ViewportHeight",
+                "GroundItems", "LoginState", "PlayerIndex", "WidgetPositionX", "WidgetPositionY", "WidgetWidths", "WidgetHeights"));
 
         for (ClassNode c : CLASSES.values()) {
             if (c.name.equals(classes.myAnimable.getName())) {
@@ -308,8 +308,9 @@ public class client extends methodAnalyserFrame {
             for (MethodNode m : methods) {
                 search = new Searcher(m);
                 if (search.findSingleIntValue(Opcodes.SIPUSH, 13056) != -1 &&
-                        search.findSingleIntValue(Opcodes.SIPUSH, 128) != -1)
+                        search.findSingleIntValue(Opcodes.SIPUSH, 128) != -1) {
                     method = m;// client.fg Rev 99, TileToMS
+                }
             }
         }
         search = new Searcher(method);
@@ -334,6 +335,33 @@ public class client extends methodAnalyserFrame {
                 addHook(new hook("CameraY", Instructions, L));
             if (L != -1 && ((VarInsnNode) Instructions[L + 4]).var == 4)
                 addHook(new hook("CameraZ", Instructions, L));
+        }
+        for (int I = 0; I < 10; ++I) {
+            L = search.find(
+                    new int[]{
+                            Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_2, Opcodes.IDIV, Opcodes.ILOAD,
+                            Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.IMUL, Opcodes.ILOAD, Opcodes.IDIV,
+                            Opcodes.IADD
+                    }, I);
+            if (L != -1 && ((VarInsnNode) Instructions[L + 5]).var == 0) {
+                addHook(new hook("ViewportWidth", Instructions, L));
+                addHook(new hook("CameraScale", Instructions, L + 6));
+            }
+        }
+        for (int I = 0; I < 10; ++I) {
+            L = search.find(
+                    new int[]{
+                            Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.ILOAD, Opcodes.IMUL, Opcodes.ILOAD,
+                            Opcodes.IDIV, Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_2, Opcodes.IDIV,
+                            Opcodes.IADD
+                    }, I);
+            if (L != -1 && ((VarInsnNode) Instructions[L + 5]).var == 1) {
+                hook scale = getHook("CameraScale");
+                FieldInsnNode potential = (FieldInsnNode) Instructions[L];
+                if (scale != null && potential.name.equals(scale.getName()) && potential.owner.equals(scale.getOwner())) {
+                    addHook(new hook("ViewportHeight", Instructions, L + 7));
+                }
+            }
         }
 
         for (classFrame c : CLASSES.values()) {
