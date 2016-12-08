@@ -15,6 +15,7 @@ import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 import java.util.Collections;
+import java.util.List;
 
 import static eUpdater.misc.JarHandler.CLASSES;
 
@@ -28,21 +29,22 @@ public class widgetNode extends methodAnalyserFrame {
         this.setNeededHooks(Collections.singletonList("Id"));
         out:
         for (classFrame c : CLASSES.values()) {
-            MethodNode m = c.getMethod(true, "([L" + classes.myWidget.getName() + ";I)V");
-            if (m != null) {
-                int L = 0;
-                for (int I = 0; L != -1; ++I) {
-                    Searcher search = new Searcher(m);
-                    AbstractInsnNode[] Instructions = m.instructions.toArray();
-                    L = search.find(new int[]{Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL}, I);
-                    if (L != -1 && ((VarInsnNode) m.instructions.get(L)).var == 5 && ((FieldInsnNode) m.instructions.get(L + 1)).owner.equals(classes.myWidgetNode.getName())) {
-                        addHook(new hook("Id", Instructions, L + 1));
-                        break out;
+            List<MethodNode> methods = c.getMethods(true, "([L" + classes.myWidget.getName() + ";I)V");
+            for (MethodNode m : methods) {
+                if (m != null) {
+                    int L = 0;
+                    for (int I = 0; L != -1; ++I) {
+                        Searcher search = new Searcher(m);
+                        AbstractInsnNode[] Instructions = m.instructions.toArray();
+                        L = search.find(new int[]{Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL}, I);
+                        if (L != -1 && ((VarInsnNode) m.instructions.get(L)).var == 5 && ((FieldInsnNode) m.instructions.get(L + 1)).owner.equals(classes.myWidgetNode.getName())) {
+                            addHook(new hook("Id", Instructions, L + 1));
+                            break out;
+                        }
                     }
                 }
             }
         }
-
 
     }
 

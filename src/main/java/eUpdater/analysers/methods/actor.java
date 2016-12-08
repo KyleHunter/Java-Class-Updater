@@ -43,25 +43,27 @@ public class actor extends methodAnalyserFrame {
         int L;
         out:
         for (classFrame c : CLASSES.values()) {
-            method = c.getMethod(true, "(L" + classes.myActor.getName() + ";)V");
-            if (method != null) {
-                Instructions = method.instructions.toArray();
-                search = new Searcher(method);
-                for (int I = 0; I < 1000; ++I) {
-                    L = search.find(new int[]{Opcodes.IINC}, I);
-                    if (L != -1)
-                        if ((((IincInsnNode) Instructions[L]).incr) == -2048) {
-                            L = search.find(new int[]{Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL,
-                                    Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD,
-                                    Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 0);
-                            addHook(new hook("QueueX", Instructions, L + 4));
-                            L = search.find(new int[]{Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL,
-                                    Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD,
-                                    Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 1);
-                            addHook(new hook("QueueY", Instructions, L + 4));
-                            addHook(new hook("QueueSize", Instructions, L + 6));
-                            break out;
-                        }
+            List<MethodNode> methods = c.getMethods(true, "(L" + classes.myActor.getName() + ";)V");
+            for (MethodNode m : methods) {
+                if (m != null) {
+                    Instructions = m.instructions.toArray();
+                    search = new Searcher(m);
+                    for (int I = 0; I < 1000; ++I) {
+                        L = search.find(new int[]{Opcodes.IINC}, I);
+                        if (L != -1)
+                            if ((((IincInsnNode) Instructions[L]).incr) == -2048) {
+                                L = search.find(new int[]{Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL,
+                                        Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD,
+                                        Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 0);
+                                addHook(new hook("QueueX", Instructions, L + 4));
+                                L = search.find(new int[]{Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL,
+                                        Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.ALOAD, Opcodes.GETFIELD,
+                                        Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_1}, 1);
+                                addHook(new hook("QueueY", Instructions, L + 4));
+                                addHook(new hook("QueueSize", Instructions, L + 6));
+                                break out;
+                            }
+                    }
                 }
             }
         }
@@ -69,22 +71,24 @@ public class actor extends methodAnalyserFrame {
         if (containsHook("QueueX")) {
             hook queueHook = getHook("QueueX");
             for (classFrame c : CLASSES.values()) {
-                method = c.getMethod(true, "(L" + classes.myActor.getName() + ";)V");
-                if (method != null && (method.access & Opcodes.ACC_STATIC) != 0) {
-                    Instructions = method.instructions.toArray();
-                    search = new Searcher(method);
-                    for (int I = 0; I < 1000; ++I) {
-                        L = search.find(new int[]{Opcodes.GETFIELD}, I);
-                        if (L != -1) {
-                            FieldInsnNode queueNode = (FieldInsnNode) Instructions[L];
-                            if (queueNode != null && queueNode.name.equals(queueHook.getName())
-                                    && queueNode.owner.equals(queueHook.getOwner())) {
-                                int H = search.find(new int[]{Opcodes.PUTFIELD}, 0, L, L + 10);
-                                if (H != -1) {
-                                    FieldInsnNode xNode = (FieldInsnNode) Instructions[H];
-                                    if (xNode != null && xNode.owner.equals(queueHook.getOwner())
-                                            && xNode.desc.equals("I")) {
-                                        addHook(new hook("WorldX", Instructions, H));
+                List<MethodNode> methods = c.getMethods(true, "(L" + classes.myActor.getName() + ";)V");
+                for (MethodNode m : methods) {
+                    if (m != null && (m.access & Opcodes.ACC_STATIC) != 0) {
+                        Instructions = m.instructions.toArray();
+                        search = new Searcher(m);
+                        for (int I = 0; I < 1000; ++I) {
+                            L = search.find(new int[]{Opcodes.GETFIELD}, I);
+                            if (L != -1) {
+                                FieldInsnNode queueNode = (FieldInsnNode) Instructions[L];
+                                if (queueNode != null && queueNode.name.equals(queueHook.getName())
+                                        && queueNode.owner.equals(queueHook.getOwner())) {
+                                    int H = search.find(new int[]{Opcodes.PUTFIELD}, 0, L, L + 10);
+                                    if (H != -1) {
+                                        FieldInsnNode xNode = (FieldInsnNode) Instructions[H];
+                                        if (xNode != null && xNode.owner.equals(queueHook.getOwner())
+                                                && xNode.desc.equals("I")) {
+                                            addHook(new hook("WorldX", Instructions, H));
+                                        }
                                     }
                                 }
                             }
@@ -97,10 +101,11 @@ public class actor extends methodAnalyserFrame {
         if (containsHook("QueueY")) {
             hook queueHook = getHook("QueueY");
             for (classFrame c : CLASSES.values()) {
-                method = c.getMethod(true, "(L" + classes.myActor.getName() + ";)V");
-                if (method != null && (method.access & Opcodes.ACC_STATIC) != 0) {
-                    Instructions = method.instructions.toArray();
-                    search = new Searcher(method);
+                List<MethodNode> methods = c.getMethods(true, "(L" + classes.myActor.getName() + ";)V");
+                for (MethodNode m : methods) {
+                if (m != null && (m.access & Opcodes.ACC_STATIC) != 0) {
+                    Instructions = m.instructions.toArray();
+                    search = new Searcher(m);
                     for (int I = 0; I < 1000; ++I) {
                         L = search.find(new int[]{Opcodes.GETFIELD}, I);
                         if (L != -1) {
@@ -118,6 +123,7 @@ public class actor extends methodAnalyserFrame {
                             }
                         }
                     }
+                }
                 }
             }
         }
@@ -180,10 +186,11 @@ public class actor extends methodAnalyserFrame {
 
         for (classFrame c : CLASSES.values()) {
             L = 0;
-            method = c.getMethod(true, "(L" + classes.myActor.getName() + ";)V");
-            if (method != null) {
-                Instructions = method.instructions.toArray();
-                search = new Searcher(method);
+            List<MethodNode> methods = c.getMethods(true, "(L" + classes.myActor.getName() + ";)V");
+            for (MethodNode m : methods) {
+            if (m != null) {
+                Instructions = m.instructions.toArray();
+                search = new Searcher(m);
                 for (int I = 0; L != -1; ++I) {
                     L = search.find(new int[]{Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL, Opcodes.LDC}, I);
                     if (L != -1)
@@ -191,6 +198,7 @@ public class actor extends methodAnalyserFrame {
                             addHook(new hook("InteractingIndex", Instructions, L));
                             L = -1;
                         }
+                }
                 }
             }
         }
