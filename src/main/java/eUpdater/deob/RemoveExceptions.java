@@ -19,6 +19,7 @@ public class RemoveExceptions extends DeobFrame {
                 {Opcodes.ILOAD, Searcher.CONSTPUSH, Searcher.IF, Opcodes.NEW, Opcodes.DUP, Opcodes.INVOKESPECIAL, Opcodes.ATHROW},
                 {Opcodes.ILOAD, Opcodes.ICONST_0, Opcodes.IF_ICMPEQ, Opcodes.NEW, Opcodes.DUP, Opcodes.INVOKESPECIAL, Opcodes.ATHROW},
                 {Opcodes.ILOAD, Opcodes.ICONST_M1, Opcodes.IF_ICMPNE, Opcodes.NEW, Opcodes.DUP, Opcodes.INVOKESPECIAL, Opcodes.ATHROW},
+                {Opcodes.ILOAD, Opcodes.ICONST_0, Opcodes.IF_ICMPGT, Opcodes.NEW, Opcodes.DUP, Opcodes.INVOKESPECIAL, Opcodes.ATHROW},
         };
         int Fixed = 0;
         for (ClassNode Class : CLASSES.values()) {
