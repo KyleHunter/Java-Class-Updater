@@ -341,11 +341,12 @@ public class client extends methodAnalyserFrame {
                     new int[]{
                             Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_2, Opcodes.IDIV, Opcodes.ILOAD,
                             Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.IMUL, Opcodes.ILOAD, Opcodes.IDIV,
-                            Opcodes.IADD
+                            Opcodes.IADD, Opcodes.LDC, Opcodes.IMUL, Opcodes.PUTSTATIC
                     }, I);
-            if (L != -1 && ((VarInsnNode) Instructions[L + 5]).var == 0) {
+            if (L != -1) {
                 addHook(new hook("ViewportWidth", Instructions, L));
                 addHook(new hook("CameraScale", Instructions, L + 6));
+                break;
             }
         }
         for (int I = 0; I < 10; ++I) {
@@ -353,13 +354,14 @@ public class client extends methodAnalyserFrame {
                     new int[]{
                             Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.ILOAD, Opcodes.IMUL, Opcodes.ILOAD,
                             Opcodes.IDIV, Opcodes.GETSTATIC, Opcodes.LDC, Opcodes.IMUL, Opcodes.ICONST_2, Opcodes.IDIV,
-                            Opcodes.IADD
+                            Opcodes.IADD, Opcodes.IMUL, Opcodes.PUTSTATIC
                     }, I);
-            if (L != -1 && ((VarInsnNode) Instructions[L + 5]).var == 1) {
+            if (L != -1) {
                 hook scale = getHook("CameraScale");
                 FieldInsnNode potential = (FieldInsnNode) Instructions[L];
                 if (scale != null && potential.name.equals(scale.getName()) && potential.owner.equals(scale.getOwner())) {
                     addHook(new hook("ViewportHeight", Instructions, L + 7));
+                    break;
                 }
             }
         }
