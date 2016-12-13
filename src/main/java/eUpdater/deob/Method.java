@@ -43,7 +43,7 @@ public final class Method extends DeobFrame {
             if (superClassName.startsWith("java")) {
                 superClass = new ClassNode();
                 try {
-                    System.out.println(superClassName);
+                    //System.out.println(superClassName);
                     ClassReader cr = new ClassReader(superClassName);
                     cr.accept(superClass, 0);
                 } catch (Exception e) {
