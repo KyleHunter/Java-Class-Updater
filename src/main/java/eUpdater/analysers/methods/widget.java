@@ -46,7 +46,7 @@ public class widget extends methodAnalyserFrame {
 
         AbstractInsnNode[] Instructions = method.instructions.toArray();
         Searcher search = new Searcher(method);
-        int L = search.findSingleIntValue(Opcodes.SIPUSH, 1701);
+        int L = search.findSingleIntValue(Opcodes.SIPUSH, 1701);/*
         L = search.find(new int[]{Opcodes.GETFIELD}, 0, L);
         addHook(new hook("ItemID", Instructions, L));
 
@@ -104,7 +104,7 @@ public class widget extends methodAnalyserFrame {
         L = search.findSingleIntValue(Opcodes.SIPUSH, 1600, L - 50);
         L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETFIELD, L, 20, 0);
         addHook(new hook("ScrollX", Instructions, L));
-
+*/
         for (classFrame c : CLASSES.values()) {
             method = c.getMethod(true, "([L" + classes.myWidget.getName() + ";IIIIIIII)V");
             if (method != null) {
