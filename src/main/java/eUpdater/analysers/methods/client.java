@@ -47,7 +47,11 @@ public class client extends methodAnalyserFrame {
                 if (m.desc.contains("([L" + classes.myWidget.getName() + ";IIIIII")) {
                     AbstractInsnNode[] Instructions = m.instructions.toArray();
                     Searcher searcher = new Searcher(m);
-                    int L = searcher.find(new int[]{Opcodes.GETSTATIC, Opcodes.ICONST_0, Opcodes.LDC, Opcodes.AASTORE}, 0);
+
+                    int L = searcher.findSingleFieldDesc(Opcodes.GETSTATIC, "[[L" + classes.myWidget.getName() + ";");
+                    addHook(new hook("Widgets", Instructions, L));
+
+                    L = searcher.find(new int[]{Opcodes.GETSTATIC, Opcodes.ICONST_0, Opcodes.LDC, Opcodes.AASTORE}, 0);
                     if (L != -1)
                         addHook(new hook("MenuOptions", Instructions, L));
                     L = searcher.find(new int[]{Opcodes.GETSTATIC, Opcodes.ICONST_0, Opcodes.GETSTATIC, Opcodes.AASTORE}, 0);
@@ -171,9 +175,6 @@ public class client extends methodAnalyserFrame {
 
         L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 2);
         addHook(new hook("BaseY", Instructions, L));
-
-        L = search.findSingleFieldDesc(Opcodes.GETSTATIC, "[[L" + classes.myWidget.getName() + ";");
-        addHook(new hook("Widgets", Instructions, L));
 
         L = search.find(new int[]{Opcodes.ILOAD, Opcodes.ICONST_2, Opcodes.IF_ICMPNE}, 0);
         L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 0);
