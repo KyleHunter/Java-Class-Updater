@@ -155,11 +155,11 @@ public class client extends methodAnalyserFrame {
         addHook(new hook("LocalPlayer", Instructions, L));
 
         for (classFrame c : CLASSES.values()) {
-            List<MethodNode> methods = c.getMethods(false, "(L");
+            List<MethodNode> methods = c.getMethods(false, "(");
             for (MethodNode m : methods) {
                 search = new Searcher(m);
-                if (search.findSingleIntValue(Opcodes.SIPUSH, 1108) != -1 &&
-                        search.findSingleIntValue(Opcodes.SIPUSH, 1114) != -1)
+                if (search.findSingleIntValue(Opcodes.SIPUSH, 3308) != -1 &&
+                        search.findSingleIntValue(Opcodes.SIPUSH, 3305) != -1)
                     method = m;//ei.q Rev 98
             }
         }
