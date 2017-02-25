@@ -181,31 +181,31 @@ public class client extends methodAnalyserFrame {
         addHook(new hook("GameSettings", Instructions, L));
 
         L = search.findSingleIntValue(Opcodes.SIPUSH, 3305);
-        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 2);
+        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 50, 4);
         addHook(new hook("CurrentLevels", Instructions, L));
 
         L = search.findSingleIntValue(Opcodes.SIPUSH, 3306);
-        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 2);
+        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 50, 4);
         addHook(new hook("RealLevels", Instructions, L));
 
         L = search.findSingleIntValue(Opcodes.SIPUSH, 3307);
-        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 2);
+        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L,  50, 4);
         addHook(new hook("Experiences", Instructions, L));
 
         L = search.findSingleIntValue(Opcodes.SIPUSH, 3322);
-        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 1);
+        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 30, 2);
         addHook(new hook("Weight", Instructions, L));
 
         L = search.findSingleIntValue(Opcodes.SIPUSH, 3321);
-        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 1);
+        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 30, 2);
         addHook(new hook("Energy", Instructions, L));
 
         L = search.findSingleIntValue(Opcodes.SIPUSH, 3318);
-        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 1);
+        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 30, 2);
         addHook(new hook("CurrentWorld", Instructions, L));
 
         L = search.findSingleIntValue(Opcodes.SIPUSH, 2702);
-        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 1);
+        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 30, 2);
         addHook(new hook("WidgetNodeCache", Instructions, L));
 
         out:
