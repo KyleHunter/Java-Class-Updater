@@ -43,9 +43,9 @@ public class item extends methodAnalyserFrame {
             L = search.find(new int[]{Opcodes.ALOAD, Opcodes.GETFIELD, Opcodes.LDC, Opcodes.IMUL}, I);
             if (L != -1 && ((VarInsnNode) Instructions[L]).var == 7) {
                 if (run && !((FieldInsnNode) Instructions[L + 1]).name.equals(temp1.getName()))
-                    temp2 = new hook("StackSizes", Instructions, L + 1);
+                    temp2 = new hook("ID", Instructions, L + 1);
                 else
-                    temp1 = new hook("ID", Instructions, L + 1);
+                    temp1 = new hook("StackSizes", Instructions, L + 1);
                 run = true;
             }
 
