@@ -159,6 +159,24 @@ public class client extends methodAnalyserFrame {
         addHook(new hook("LocalPlayer", Instructions, L));
 
         for (classFrame c : CLASSES.values()) {
+            List<MethodNode> methods = c.getMethods(false, "()V");
+            for (MethodNode m : methods) {
+                if (m.name.equals("<clinit>")) {
+                    search = new Searcher(m);
+                    if (search.findSingleIntValue(Opcodes.SIPUSH, 2000) != -1 &&
+                            !classes.myModel.getName().equals(c.name))
+                        method = m;
+                }
+            }
+        }
+
+        search = new Searcher(method);
+        Instructions = method.instructions.toArray();
+        L = search.findSingleIntValue(Opcodes.SIPUSH, 2000);
+        L = search.findSingleJump(Opcodes.GOTO, Opcodes.PUTSTATIC, L, 15, 0);
+        addHook(new hook("GameSettings", Instructions, L));
+
+        for (classFrame c : CLASSES.values()) {
             List<MethodNode> methods = c.getMethods(false, "(");
             for (MethodNode m : methods) {
                 search = new Searcher(m);
@@ -175,10 +193,6 @@ public class client extends methodAnalyserFrame {
 
         L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 2);
         addHook(new hook("BaseY", Instructions, L));
-
-        L = search.find(new int[]{Opcodes.ILOAD, Opcodes.ICONST_2, Opcodes.IF_ICMPNE}, 0);
-        L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 15, 0);
-        addHook(new hook("GameSettings", Instructions, L));
 
         L = search.findSingleIntValue(Opcodes.SIPUSH, 3305);
         L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 50, 4);
