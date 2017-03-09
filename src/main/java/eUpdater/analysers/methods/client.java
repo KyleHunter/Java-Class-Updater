@@ -181,8 +181,9 @@ public class client extends methodAnalyserFrame {
             for (MethodNode m : methods) {
                 search = new Searcher(m);
                 if (search.findSingleIntValue(Opcodes.SIPUSH, 3308) != -1 &&
-                        search.findSingleIntValue(Opcodes.SIPUSH, 3305) != -1)
-                    method = m;//ei.q Rev 98
+                        search.findSingleIntValue(Opcodes.SIPUSH, 3305) != -1) {
+                    method = m;//am.f rev 138
+                }
             }
         }
         search = new Searcher(method);
@@ -218,6 +219,19 @@ public class client extends methodAnalyserFrame {
         L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 30, 2);
         addHook(new hook("CurrentWorld", Instructions, L));
 
+
+        for (classFrame c : CLASSES.values()) {
+            List<MethodNode> methods = c.getMethods(false, "(");
+            for (MethodNode m : methods) {
+                search = new Searcher(m);
+                if (search.findSingleIntValue(Opcodes.SIPUSH, 2702) != -1 &&
+                        search.findSingleIntValue(Opcodes.SIPUSH, 2701) != -1) {
+                    method = m;//z.c rev 138
+                }
+            }
+        }
+        search = new Searcher(method);
+        Instructions = method.instructions.toArray();
         L = search.findSingleIntValue(Opcodes.SIPUSH, 2702);
         L = search.findSingleJump(Opcodes.GOTO, Opcodes.GETSTATIC, L, 30, 2);
         addHook(new hook("WidgetNodeCache", Instructions, L));
