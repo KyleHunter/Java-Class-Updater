@@ -11,6 +11,7 @@ import eUpdater.refactor.refactor;
 import eUpdater.searchers.mutltiplierSearcher;
 import org.objectweb.asm.tree.FieldNode;
 
+import javax.json.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static eUpdater.misc.JarHandler.CLASSES;
+import static javax.json.Json.createArrayBuilder;
 
 /**
  * Created by Kyle on 7/21/2015.
@@ -162,6 +164,34 @@ public class mainAnalyser {
 
     }
 
+ /*   private void jsonPrint() {
+
+        JsonBuilderFactory factory = Json.createBuilderFactory(null);
+        JsonObjectBuilder build = factory.createObjectBuilder();
+        JsonObjectBuilder build2 = factory.createObjectBuilder();
+
+        for (classAnalyserFrame a : this.classAnalysers) {
+            if (!a.hasMethodAnalyser)
+                continue;
+            for (hook f : a.getMethodAnalyser().getHooks()) {
+
+                if (!a.getId().equals("Client")) {
+                    build2.add(f.getId(), factory.createObjectBuilder()
+                            .add("hook", f.getName())
+                            .add("multi", f.getMultiplier()));
+                    build2.add("name", a.getName());
+                } else {
+                    build2.add(f.getId(), factory.createObjectBuilder()
+                            .add("hook", f.getOwner() + "." + f.getName())
+                            .add("multi", f.getMultiplier()));
+                    build2.add("name", a.getName());
+                }
+            }
+            build.add(a.getId(), build2);
+        }
+        System.out.println(build.build().toString());
+    }
+*/
     private void logPrint() {
         for (classAnalyserFrame a : this.classAnalysers) {
             System.out.print(" # " + a.getId() + ": " + a.getNodes().get(0).name + ", " + a.duplicates() + " duplicates");
@@ -214,6 +244,49 @@ public class mainAnalyser {
             System.out.println("");
         } else
             System.out.println("");
+    }
+
+    private void banzaiPrint() {
+        int length = 0;
+        try {
+            FileWriter write = new FileWriter("" +
+                    "C:/Users/Kyle/Banzai/Internal/hooks.py", false);
+            PrintWriter printer = new PrintWriter(write);
+            printer.println("ReflectionRevision = '" + eUpdater.Revision + "'\n");
+            for (classAnalyserFrame a : this.classAnalysers) {
+                printer.print("#  " + a.getId() + ": " + a.getNodes().get(0).name);
+                printer.println("");
+                if (a.hasMethodAnalyser) {
+                    for (hook f : a.getMethodAnalyser().getHooks()) {
+                        length = (a.getId().length() + f.getId().length());
+                        if (f.getMultiplier() != 0) {
+                            printer.print(a.getId() + "_" + f.getId() + " = ");
+                            for (int I = 0; I < 25 - length; ++I)
+                                printer.print(" ");
+                            if (a.getId().equals("Client"))
+                                printer.println("['" + f.getOwner() + "." + f.getName() + "', " + f.getMultiplier() + "]");
+                            else
+                                printer.println("['" + f.getName() + "', " + f.getMultiplier() + "]");
+
+                        } else {
+                            printer.print(a.getId() + "_" + f.getId() + " = ");
+                            for (int I = 0; I < 25 - length; ++I)
+                                printer.print(" ");
+                            if (a.getId().equals("Client"))
+                                printer.println("['" + f.getOwner() + "." + f.getName() + "', 1]");
+                            else
+                                printer.println("['" + f.getName() + "', 1]");
+
+
+                        }
+                    }
+                }
+                printer.println("");
+            }
+            printer.close();
+        } catch (IOException e) {
+            System.out.println(e.getStackTrace());
+        }
     }
 
     private void simbaPrint() {
@@ -271,6 +344,7 @@ public class mainAnalyser {
             simbaPrint();
         if (eUpdater.logPrint)
             logPrint();
+        banzaiPrint();
         access = this;
         if (eUpdater.doRefactor)
             refactor.run();
