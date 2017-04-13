@@ -15,11 +15,8 @@ public class widget extends classAnalyserFrame {
         this.setId("Widget");
         this.setMethodAnalyser(methods.myWidget);
         classes.myWidget.setId("Widget");
-        if (c.superName.equals(classes.myNode.getName())) {
-            FieldSearcher search = new FieldSearcher(c);
-            int L = search.countContainsDesc("[[L" + c.name);
-            if (L == 1)
-                this.set(c);
+        if (c.superName.equals(classes.myNode.getName()) && c.fields.size() > 50) {
+            this.set(c);
         }
     }
 }

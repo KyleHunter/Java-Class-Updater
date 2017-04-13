@@ -47,10 +47,8 @@ public class client extends methodAnalyserFrame {
                 if (m.desc.contains("([L" + classes.myWidget.getName() + ";IIIIII")) {
                     AbstractInsnNode[] Instructions = m.instructions.toArray();
                     Searcher searcher = new Searcher(m);
-
                     int L = searcher.findSingleFieldDesc(Opcodes.GETSTATIC, "[[L" + classes.myWidget.getName() + ";");
-                    addHook(new hook("Widgets", Instructions, L));
-
+                    //addHook(new hook("Widgets", Instructions, L));
                     L = searcher.find(new int[]{Opcodes.GETSTATIC, Opcodes.ICONST_0, Opcodes.LDC, Opcodes.AASTORE}, 0);
                     if (L != -1)
                         addHook(new hook("MenuOptions", Instructions, L));
@@ -167,6 +165,30 @@ public class client extends methodAnalyserFrame {
                             !classes.myModel.getName().equals(c.name))
                         method = m;
                 }
+            }
+        }
+
+        for (classFrame c : CLASSES.values()) {
+            List<FieldNode> fields = c.fields;
+            for (FieldNode f : fields) {
+                if (f.desc.contains("[[L" + classes.myWidget.getName() + ";")) {
+                    System.out.println(c.name);
+                    addHook(new hook("Widgets", f));
+                }
+            }
+
+        }
+
+        for (classFrame c : CLASSES.values()) {
+            List<MethodNode> methods = c.methods;
+            for (MethodNode m : methods) {
+                search = new Searcher(m);
+                Instructions = m.instructions.toArray();
+                L = search.findSingleFieldDesc(Opcodes.GETSTATIC, "L" + classes.myHashTable.getName() + ";");
+                if (L != -1) {
+                    System.out.println(((FieldInsnNode) Instructions[L]).owner + "." + ((FieldInsnNode) Instructions[L]).name);
+                }
+
             }
         }
 
